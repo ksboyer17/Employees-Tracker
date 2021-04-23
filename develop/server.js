@@ -29,9 +29,60 @@ let initprompt = ()=>{
         switch(answers.Starter){
             case "Add Department": 
             addDepartment();
-                
+            break;
+            case "Add Role":
+            addRole();
+            break;
+            case "Add Employees":
+            addEmployee();
+            break;
+            case "View Departments":
+            viewDepartment();
+            break;
+            case "View Roles":
+            viewRole();
+            break;
+            case "View Employees":
+            viewEmployees();
+            break;
+            case "Update Employee Roles":
+            employeeRoles();
+            break;
+            case "Quit":
+            quit();
+            break;
+
+
+
+
+
+
         }
     })
+}
+//function to add an employee
+function addEmployee(){
+    inquirer.prompt([
+        {
+        name: "firstname",
+        type: "input",
+        message: "Enter employees first name!"
+        },
+        {
+        name: "lastname",
+        type: "input",
+        message: "Enter employees last name!"
+        },
+        {
+        name: "role",
+        type: "input",
+        message: "Enter employees role!"
+        }
+    
+
+    
+
+    ])
 }
 
 initprompt();
