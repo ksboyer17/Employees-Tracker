@@ -4,8 +4,22 @@ const db = require('./db');
 
 
 
-function addDepartment(){
-
+function addRole(){
+    inquirer.prompt([
+        {
+        name: "Role",
+        type: "input",
+        message:"What is the Role name?"
+        },
+        {
+        name: "Salary",
+        type: "input",
+        message:"What is the the Salary?"
+        }
+    ])
+    .then((department)=> {
+        db.addRole(department)
+    })
 }
 
 let initprompt = ()=>{
@@ -15,13 +29,11 @@ let initprompt = ()=>{
             name: "Starter",
             message:"What would you like to do?",
             choices:[
-                "Add Departement","Add Role","Add Employees","View Departments","View Roles", "View Employees", "Update Employee Roles", "Quit"
+                "Add Department","Add Role","Add Employees","View Departments","View Roles", "View Employees", "Update Employee Roles", "Quit"
                 ]
             }
         ]
     ) .then(answers => {
-        console.log(answers)
-
         switch(answers.Starter){
             case "Add Department": 
             addDepartment();
@@ -33,7 +45,7 @@ let initprompt = ()=>{
             addEmployee();
             break;
             case "View Departments":
-            viewDepartment();
+            viewDepartments();
             break;
             case "View Roles":
             viewRole();
@@ -47,12 +59,6 @@ let initprompt = ()=>{
             case "Quit":
             quit();
             break;
-
-
-
-
-
-
         }
     })
 }
@@ -74,11 +80,13 @@ function addEmployee(){
         type: "input",
         message: "Enter employees role!"
         }
-    
-
-    
-
     ])
+}
+
+async function viewDepartments() {
+    const departments = await db.findAllDepartments();
+    console.table(departments);
+    initprompt();
 }
 
 function addDepartment(){
@@ -89,8 +97,10 @@ function addDepartment(){
             message: "Enter the name of the new department!"
         }
     ])
-    .then((department)=> {
-        db.createDepartment(department)
+    .then( async (department) => {
+        await db.createDepartment(department);
+        console.log(`Added ${department.name} to the Database`);
+        initprompt();
     })
 }
 
