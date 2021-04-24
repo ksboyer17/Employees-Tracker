@@ -10,5 +10,14 @@ class DB {
     findAllDepartments(){
         return this.connection.query("SELECT departments")
     }
+    updateEmployee(){
+        return this.connection.query("SELECT employee.last_name")
+    }
+    addRole(){
+        return this.connection.query(" INSERT INTO role SET")
+    }
+    addEmployee(){
+        return this.connection.query("INSERT INTO employee SET")
+    }
 }
 module.exports = new DB(connection);
