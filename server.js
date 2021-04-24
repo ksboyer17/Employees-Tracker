@@ -1,22 +1,8 @@
 const inquirer = require('inquirer');
 let mysql = require('mysql');
+const db = require('./db')
 
-//database connection
-const connection = mysqlcreateConnection({
-    host: "localhost",
-    port: 3306,
-    user:"root",
-    password:"password",//update this later
-    database: "employee_DB"
-});
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("Result: " + result);
-    });
-  });
+
 
 function addDepartment(){
 
@@ -93,6 +79,19 @@ function addEmployee(){
     
 
     ])
+}
+
+function addDepartment(){
+    inquirer.prompt([
+        {
+            name:"name",
+            type: "input",
+            message: "Enter the name of the new department!"
+        }
+    ])
+    .then((department)=> {
+        db.createDepartment(department)
+    })
 }
 
 initprompt();
